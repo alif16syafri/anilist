@@ -1,16 +1,39 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import './index.css';
+
+const apolloClient = new ApolloClient({
+  uri: 'https://graphql.anilist.co',
+  cache: new InMemoryCache({
+    typePolicies: {
+      Query: {
+        fields: {
+          Page: {
+            keyArgs: false,
+            merge(_, incoming) {
+              return incoming;
+            },
+          },
+        },
+      },
+    },
+  }),
+});
+
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById('root') as HTMLElement,
 );
 root.render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <ApolloProvider client={apolloClient}>
+      <App />
+    </ApolloProvider>
+  </React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function
