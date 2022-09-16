@@ -11,7 +11,7 @@ import { useCollectionDetailPage } from './useCollectionDetailPage';
 
 import * as styles from './CollectionDetailPageStyle';
 
-export const CollectionDetailPage = () => {
+const CollectionDetailPage = () => {
   const {
     register,
     isFormOpen,
@@ -97,3 +97,5 @@ export const CollectionDetailPage = () => {
     </Layout>
   );
 };
+
+export default CollectionDetailPage;

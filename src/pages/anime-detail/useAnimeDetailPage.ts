@@ -1,4 +1,5 @@
 import { useState, useCallback, useMemo } from 'react';
+import toast from 'react-hot-toast';
 import { useForm } from 'react-hook-form';
 import { useQuery as useGQLQuery, gql } from '@apollo/client';
 import { useQuery as useReactQuery, useMutation } from '@tanstack/react-query';
@@ -105,6 +106,7 @@ export const useAnimeDetailPage = () => {
       handleCloseCollectionForm();
       await refetchCollectionsByMedia();
       await refetchCollections();
+      toast('success add to collection');
     },
   });
 

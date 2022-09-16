@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
+import { Toaster } from 'react-hot-toast';
 import { Router, ReactLocation } from '@tanstack/react-location';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Layout } from './components/Layout/Layout';
+import { COLOR } from './lib/styles/variables';
 
-import { AnimeListPage } from 'pages/anime-list/AnimeListPage';
-import { AnimeDetailPage } from 'pages/anime-detail/AnimeDetailPage';
-import { CollectionListPage } from 'pages/collection-list/CollectionListPage';
-import { CollectionDetailPage } from 'pages/collection-detail/CollectionDetailPage';
+const AnimeListPage = lazy(() => import('pages/anime-list/AnimeListPage'));
+const AnimeDetailPage = lazy(() => import('pages/anime-detail/AnimeDetailPage'));
+const CollectionListPage = lazy(() => import('pages/collection-list/CollectionListPage'));
+const CollectionDetailPage = lazy(() => import('pages/collection-detail/CollectionDetailPage'));
 
 const routes = [
   {
@@ -27,11 +30,14 @@ const routes = [
 ];
 
 const location = new ReactLocation();
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
+    <Suspense fallback={<div style={{ background: COLOR.N900, width: '100vw', height: '100vh' }} />}>
       <Router location={location} routes={routes} />
+    </Suspense>
+    <Toaster />
   </QueryClientProvider>
 );
 

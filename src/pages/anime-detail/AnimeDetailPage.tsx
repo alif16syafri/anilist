@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { useCallback } from 'react';
 import { Link } from '@tanstack/react-location';
-import * as DOMPurify from 'dompurify';
 
 import { AnimeCard } from 'components/AnimeCard/AnimeCard';
 import { Button } from 'components/Button/Button';
@@ -14,7 +13,7 @@ import { useAnimeDetailPage } from './useAnimeDetailPage';
 
 import * as styles from './AnimeDetailPageStyle';
 
-export const AnimeDetailPage = () => {
+const AnimeDetailPage = () => {
   const {
     register,
     data,
@@ -142,7 +141,7 @@ export const AnimeDetailPage = () => {
 
           <p
             css={styles.content}
-            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(media?.description ?? '') }}
+            dangerouslySetInnerHTML={{ __html: media?.description ?? '' }}
           />
         </div>
 
@@ -157,3 +156,5 @@ export const AnimeDetailPage = () => {
     </Layout>
   );
 };
+
+export default AnimeDetailPage;

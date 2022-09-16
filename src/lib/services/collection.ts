@@ -50,8 +50,11 @@ export const editCollectionName = async (id: string, collectionName: string): Pr
   return new Promise(async (resolve, reject) => {
     const collections = await getCollections();
     const foundCollectionIndex = collections.findIndex((col) => col.id === id);
-    const foundCollectionNameIndex = collections.findIndex((col) => col.name === collectionName);
+    const foundCollectionNameIndex = collections.findIndex((col) => col.name === collectionName.toLowerCase());
     let copiedCollections = [...collections];
+
+    // name is similar with current name
+    if (foundCollectionIndex === foundCollectionNameIndex) resolve(copiedCollections);
 
     if (foundCollectionIndex > -1) {
       if (foundCollectionNameIndex === -1) {

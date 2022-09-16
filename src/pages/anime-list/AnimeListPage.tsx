@@ -46,7 +46,7 @@ const GET_ANIME_LIST = gql`
     }
 `;
 
-export const AnimeListPage = () => {
+const AnimeListPage = () => {
   const {
     data,
     loading,
@@ -116,3 +116,5 @@ export const AnimeListPage = () => {
     </Layout>
   );
 };
+
+export default AnimeListPage;

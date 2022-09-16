@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import { useQuery, useMutation } from '@tanstack/react-query';
 
 import { getCollections, addCollection, editCollectionName, deleteCollection } from 'lib/services/collection';
@@ -32,7 +33,10 @@ export const useCollections = ({
 
   const addMutation = useMutation({
     mutationFn: (data: Collection) => addCollection(data),
-    onSuccess: (data) => onSuccessSubmitCollection?.(data),
+    onSuccess: (data) => {
+      onSuccessSubmitCollection?.(data);
+      toast('success to create new collection');
+    },
     onError: (error: ErrorResponse) => onErrorSubmitCollection?.(error.message),
   });
 
@@ -41,13 +45,19 @@ export const useCollections = ({
       id: string,
       name: string,
     }) => editCollectionName(id, name),
-    onSuccess: (data) => onSuccessSubmitCollection?.(data),
+    onSuccess: (data) => {
+      onSuccessSubmitCollection?.(data);
+      toast('success to edit collection name');
+    },
     onError: (error: ErrorResponse) => onErrorSubmitCollection?.(error.message),
   });
 
   const deleteMutation = useMutation({
     mutationFn: (id: string) => deleteCollection(id),
-    onSuccess: (data) => onSuccessDeleteCollection?.(data)
+    onSuccess: (data) => {
+      onSuccessDeleteCollection?.(data);
+      toast('success to delete collection');
+    },
   });
 
   return {

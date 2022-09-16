@@ -11,7 +11,7 @@ import { useCollectionListPage } from './useCollectionListPage';
 
 import * as styles from './CollectionListPageStyle';
 
-export const CollectionListPage = () => {
+const CollectionListPage = () => {
   const {
     register,
     isLoading,
@@ -109,3 +109,5 @@ export const CollectionListPage = () => {
     </Layout>
   );
 };
+
+export default CollectionListPage;
