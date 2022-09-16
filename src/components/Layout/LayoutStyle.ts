@@ -19,9 +19,13 @@ export const header = css({
   display: 'flex',
   alignItems: 'center',
   padding: '0 24px',
-  fontWeight: 'bold',
   borderBottom: `1px solid ${COLOR.N900}`
 });
+
+export const route = css({
+  marginLeft: 16,
+  fontSize: 14,
+})
 
 export const logo = css({
   borderRight: `1px solid ${COLOR.N900}`,
@@ -29,6 +33,7 @@ export const logo = css({
   paddingRight: 24,
   display: 'flex',
   alignItems: 'center',
+  fontWeight: 'bold',
 });
 
 export const main = css({

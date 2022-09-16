@@ -104,9 +104,11 @@ export const useAnimeDetailPage = () => {
     }) => addMediaToCollection(media, collectionId),
     onSuccess: async () => {
       handleCloseCollectionForm();
+
+      toast('success add to collection');
+
       await refetchCollectionsByMedia();
       await refetchCollections();
-      toast('success add to collection');
     },
   });
 

@@ -4,7 +4,7 @@ import { useQuery, useMutation } from '@tanstack/react-query';
 import { getCollections, addCollection, editCollectionName, deleteCollection } from 'lib/services/collection';
 
 import type { Collection } from 'lib/types/collection';
-import { ErrorResponse } from '../lib/config';
+import type { ErrorResponse } from 'lib/config';
 
 type Params = {
   enabledGetCollections?: boolean;
@@ -34,8 +34,8 @@ export const useCollections = ({
   const addMutation = useMutation({
     mutationFn: (data: Collection) => addCollection(data),
     onSuccess: (data) => {
-      onSuccessSubmitCollection?.(data);
       toast('success to create new collection');
+      onSuccessSubmitCollection?.(data);
     },
     onError: (error: ErrorResponse) => onErrorSubmitCollection?.(error.message),
   });
@@ -46,8 +46,8 @@ export const useCollections = ({
       name: string,
     }) => editCollectionName(id, name),
     onSuccess: (data) => {
-      onSuccessSubmitCollection?.(data);
       toast('success to edit collection name');
+      onSuccessSubmitCollection?.(data);
     },
     onError: (error: ErrorResponse) => onErrorSubmitCollection?.(error.message),
   });
@@ -55,8 +55,8 @@ export const useCollections = ({
   const deleteMutation = useMutation({
     mutationFn: (id: string) => deleteCollection(id),
     onSuccess: (data) => {
-      onSuccessDeleteCollection?.(data);
       toast('success to delete collection');
+      onSuccessDeleteCollection?.(data);
     },
   });
 

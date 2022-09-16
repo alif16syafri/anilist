@@ -8,6 +8,8 @@ import { Layout } from 'components/Layout/Layout';
 import { Modal } from 'components/Modal/Modal';
 import { CollectionCard } from 'components/CollectionCard/CollectionCard';
 import { CollectionTextInput } from 'components/CollectionTextInput/CollectionTextInput';
+import { Loading } from 'components/Loading/Loading';
+import { LoadingState, NotFoundState } from 'components/PageState/PageState';
 
 import { useAnimeDetailPage } from './useAnimeDetailPage';
 
@@ -82,7 +84,9 @@ const AnimeDetailPage = () => {
     >
       <div css={styles.full}>
         {isLoadingCollections ? (
-          <p css={styles.center}>Loading ...</p>
+          <p css={styles.center}>
+            <Loading />
+          </p>
         ) : (
           <>
             {renderNewCollectionInput()}
@@ -94,9 +98,9 @@ const AnimeDetailPage = () => {
   ), [handleCloseCollectionForm, isLoadingCollections, renderCollectionFeed, renderNewCollectionInput]);
 
   const renderBody = useCallback(() => {
-    if (isLoading) return <p css={styles.center}>Loading ...</p>;
+    if (isLoading) return <LoadingState />
 
-    if (error || !data || !data.Media) return <p css={styles.center}>Error ...</p>;
+    if (error || !data || !data.Media) return <NotFoundState />
 
     const media = data.Media;
 

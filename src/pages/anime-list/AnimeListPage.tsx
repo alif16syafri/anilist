@@ -1,13 +1,18 @@
 /** @jsxImportSource @emotion/react */
 import { useCallback } from 'react';
+import { useSearch } from '@tanstack/react-location';
 import { gql, useQuery } from '@apollo/client';
+
+import type { MakeGenerics } from '@tanstack/react-location';
 
 import { Layout } from 'components/Layout/Layout';
 import { AnimeFeed } from 'components/AnimeFeed/AnimeFeed';
+import { LoadingState, NotFoundState } from 'components/PageState/PageState';
 
 import type { Media } from 'lib/types/media';
 
 import * as styles from './AnimeListPageStyle';
+import { useNavigate } from '@tanstack/react-location';
 
 type AnimeListData = {
   Page: {
@@ -22,6 +27,8 @@ type AnimeListData = {
 type AnimeListVariables = {
   page: number;
 }
+
+type Search = MakeGenerics<{ Search: { page: number } }>;
 
 const LIMIT = 10;
 
@@ -47,13 +54,15 @@ const GET_ANIME_LIST = gql`
 `;
 
 const AnimeListPage = () => {
+  const navigate = useNavigate();
+  const { page = 1 } = useSearch<Search>();
   const {
     data,
     loading,
     error,
     fetchMore,
   } = useQuery<AnimeListData, AnimeListVariables>(GET_ANIME_LIST, {
-    variables: { page: 1 },
+    variables: { page },
     notifyOnNetworkStatusChange: true,
   });
 
@@ -61,21 +70,27 @@ const AnimeListPage = () => {
   const hasNextPage = data?.Page.pageInfo.hasNextPage ?? false;
 
   const handleLoadPrevPage = useCallback(async () => {
-    await fetchMore({ variables: { page: currentPage - 1 } });
-  }, [currentPage, fetchMore]);
+    const prevPage = currentPage - 1;
+
+    await fetchMore({ variables: { page: prevPage } });
+    navigate({ search: { page: prevPage } });
+  }, [currentPage, fetchMore, navigate]);
 
   const handleLoadNextPage = useCallback(async () => {
-    await fetchMore({ variables: { page: currentPage + 1 } });
-  }, [currentPage, fetchMore]);
+    const nextPage = currentPage + 1;
+
+    await fetchMore({ variables: { page: nextPage } });
+    navigate({ search: { page: nextPage } });
+  }, [currentPage, fetchMore, navigate]);
 
   const renderPagination = useCallback(() => {
     const isFirstPage = currentPage === 1;
 
     return (
-      <div className="flex justify-end">
+      <div css={styles.pagination}>
         {!isFirstPage && (
           <button
-            className="px-4 border rounded"
+            css={styles.paginationBtn}
             onClick={handleLoadPrevPage}
           >
             Prev
@@ -83,7 +98,7 @@ const AnimeListPage = () => {
         )}
         {hasNextPage && (
           <button
-            className="ml-4 px-4 border rounded"
+            css={[styles.paginationBtn, styles.paginationNextBtn]}
             onClick={handleLoadNextPage}
           >
             Next
@@ -94,10 +109,9 @@ const AnimeListPage = () => {
   }, [currentPage, handleLoadNextPage, handleLoadPrevPage, hasNextPage]);
 
   const renderFeed = useCallback(() => {
+    if (loading) return <LoadingState />;
 
-    if (loading) return <p css={styles.center}>Loading ...</p>;
-
-    if (error || !data) return <p css={styles.center}>Error ...</p>;
+    if (error || !data || data.Page.media.length === 0) return <NotFoundState />;
 
     const mediaList = data.Page.media;
 

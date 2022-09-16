@@ -1,11 +1,5 @@
 import { css } from '@emotion/react';
 
-export const center = css({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-});
-
 export const full = css({
   width: '100%',
 });

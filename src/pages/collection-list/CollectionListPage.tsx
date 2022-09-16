@@ -6,6 +6,7 @@ import { CollectionCard } from 'components/CollectionCard/CollectionCard';
 import { CollectionTextInput } from 'components/CollectionTextInput/CollectionTextInput';
 import { Modal } from 'components/Modal/Modal';
 import { Layout } from 'components/Layout/Layout';
+import { LoadingState, NotFoundState } from 'components/PageState/PageState';
 
 import { useCollectionListPage } from './useCollectionListPage';
 
@@ -64,15 +65,9 @@ const CollectionListPage = () => {
   ), [handleCloseDelete, handleDelete]);
 
   const renderCollections = useCallback(() => {
-    if (isLoading) return <p css={styles.center}>Loading ...</p>;
+    if (isLoading) return <LoadingState />;
 
-    if (isError || collections?.length === 0) {
-      return (
-        <p css={styles.center}>
-          No collections found
-        </p>
-      );
-    }
+    if (isError || collections?.length === 0) return <NotFoundState />
 
     return (
       collections?.map((collection) => (

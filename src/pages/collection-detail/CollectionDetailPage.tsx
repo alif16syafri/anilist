@@ -6,6 +6,7 @@ import { AnimeFeed } from 'components/AnimeFeed/AnimeFeed';
 import { Button } from 'components/Button/Button';
 import { Modal } from 'components/Modal/Modal';
 import { CollectionTextInput } from 'components/CollectionTextInput/CollectionTextInput';
+import { LoadingState, NotFoundState } from 'components/PageState/PageState';
 
 import { useCollectionDetailPage } from './useCollectionDetailPage';
 
@@ -61,15 +62,9 @@ const CollectionDetailPage = () => {
   ), [handleCloseDelete, handleDelete, selectedMedia?.title]);
 
   const renderFeed = useCallback(() => {
-    if (isLoading) return <p css={styles.center}>Loading ...</p>;
+    if (isLoading) return <LoadingState />
 
-    if (isError || !collection || collection.media.length === 0) {
-      return (
-        <p css={styles.center}>
-          No media found
-        </p>
-      );
-    }
+    if (isError || collection?.media.length === 0) return <NotFoundState />
 
     return (
       <div>

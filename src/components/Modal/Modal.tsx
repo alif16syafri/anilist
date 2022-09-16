@@ -29,9 +29,7 @@ export const Modal: FC<Props> = ({
 
         <div css={styles.innerContainer}>
           <div css={styles.modalPosition}>
-            <div
-              css={styles.modal}
-              className="shadow-xl transform transition-all">
+            <div css={styles.modal}>
 
               <h3 css={styles.title} id="modal-title">
                 {title}

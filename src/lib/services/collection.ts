@@ -5,6 +5,8 @@ import type { Media } from '../types/media';
 import { error } from '../config';
 
 const COLLECTIONS_KEY = '__ani_collections';
+const GET_TIMEOUT_DURATION = 1000;
+const POST_TIMEOUT_DURATION = 200;
 
 export const saveCollections = (collections: Collection[]) => {
   localStorage.setItem(COLLECTIONS_KEY, JSON.stringify(collections));
@@ -14,7 +16,7 @@ export const getCollections = (): Promise<Collection[]> => {
   return new Promise((resolve) => {
     const collections: Collection[] = JSON.parse(localStorage.getItem(COLLECTIONS_KEY) ?? '[]');
 
-    setTimeout(() => resolve(collections), 500);
+    setTimeout(() => resolve(collections), GET_TIMEOUT_DURATION);
   });
 };
 
@@ -23,7 +25,7 @@ export const getCollectionById = (id: string): Promise<Collection | undefined> =
     const collections: Collection[] = JSON.parse(localStorage.getItem(COLLECTIONS_KEY) ?? '[]');
     const foundCollection = collections.find((col) => col.id === id);
 
-    setTimeout(() => resolve(foundCollection), 500);
+    setTimeout(() => resolve(foundCollection), GET_TIMEOUT_DURATION);
   });
 };
 
@@ -36,12 +38,12 @@ export const addCollection = async (collection: Collection): Promise<Collection[
     if (foundCollectionIndex === -1) {
       copiedCollections = [...copiedCollections, collection];
       await saveCollections(copiedCollections);
-      setTimeout(() => resolve(copiedCollections), 200);
+      setTimeout(() => resolve(copiedCollections), POST_TIMEOUT_DURATION);
     } else {
       setTimeout(() => reject(error({
         code: ErrorCode.ALREADY_EXIST,
         message: 'Collection name already exist',
-      })), 200);
+      })), POST_TIMEOUT_DURATION);
     }
   });
 };
@@ -60,12 +62,12 @@ export const editCollectionName = async (id: string, collectionName: string): Pr
       if (foundCollectionNameIndex === -1) {
         copiedCollections[foundCollectionIndex].name = collectionName;
         await saveCollections(copiedCollections);
-        setTimeout(() => resolve(copiedCollections), 200);
+        setTimeout(() => resolve(copiedCollections), POST_TIMEOUT_DURATION);
       } else {
         setTimeout(() => reject(error({
           code: ErrorCode.ALREADY_EXIST,
           message: 'Collection name already exist',
-        })), 200);
+        })), POST_TIMEOUT_DURATION);
       }
     }
   });
@@ -83,7 +85,7 @@ export const deleteCollection = async (id: string): Promise<Collection[]> => {
 
     await saveCollections(copiedCollections);
 
-    setTimeout(() => resolve(copiedCollections), 200);
+    setTimeout(() => resolve(copiedCollections), POST_TIMEOUT_DURATION);
   });
 };
 
@@ -99,7 +101,7 @@ export const addMediaToCollection = async (media: Media, collectionId: string): 
 
     await saveCollections(copiedCollections);
 
-    setTimeout(() => resolve(copiedCollections), 200);
+    setTimeout(() => resolve(copiedCollections), POST_TIMEOUT_DURATION);
   });
 };
 
@@ -109,7 +111,7 @@ export const getCollectionsByMediaId = async (id: number): Promise<Collection[]>
 
     setTimeout(() => resolve(
         collections.filter((collection) => collection.media.some(item => item.id === id))),
-      200,
+      GET_TIMEOUT_DURATION,
     );
   });
 };
@@ -128,7 +130,7 @@ export const deleteMediaFromCollectionById = (collectionId: string, mediaId: num
 
     await saveCollections(copiedCollections);
 
-    setTimeout(() => resolve(copiedCollections[foundCollectionIndex]), 200);
+    setTimeout(() => resolve(copiedCollections[foundCollectionIndex]), POST_TIMEOUT_DURATION);
   });
 };
 
