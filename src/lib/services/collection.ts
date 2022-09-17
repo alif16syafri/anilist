@@ -1,9 +1,7 @@
-import { ErrorCode } from '../config';
+import { ErrorCode, error, ErrorMessage } from '../config';
 
 import type { Collection } from '../types/collection';
 import type { Media } from '../types/media';
-import { error } from '../config';
-import { ErrorMessage } from '../config';
 
 const COLLECTIONS_KEY = '__ani_collections';
 const GET_TIMEOUT_DURATION = 1000;
