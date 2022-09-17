@@ -3,6 +3,7 @@ import { ErrorCode } from '../config';
 import type { Collection } from '../types/collection';
 import type { Media } from '../types/media';
 import { error } from '../config';
+import { ErrorMessage } from '../config';
 
 const COLLECTIONS_KEY = '__ani_collections';
 const GET_TIMEOUT_DURATION = 1000;
@@ -42,7 +43,7 @@ export const addCollection = async (collection: Collection): Promise<Collection[
     } else {
       setTimeout(() => reject(error({
         code: ErrorCode.ALREADY_EXIST,
-        message: 'Collection name already exist',
+        message: ErrorMessage.COLLECTION_ALREADY_EXIST,
       })), POST_TIMEOUT_DURATION);
     }
   });
@@ -66,7 +67,7 @@ export const editCollectionName = async (id: string, collectionName: string): Pr
       } else {
         setTimeout(() => reject(error({
           code: ErrorCode.ALREADY_EXIST,
-          message: 'Collection name already exist',
+          message: ErrorMessage.COLLECTION_ALREADY_EXIST,
         })), POST_TIMEOUT_DURATION);
       }
     }

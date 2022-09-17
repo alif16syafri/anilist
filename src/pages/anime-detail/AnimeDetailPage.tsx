@@ -50,6 +50,7 @@ const AnimeDetailPage = () => {
             <div>
               <Button
                 css={styles.addInputBtn}
+                data-testid="submit-collection"
                 onClick={handleAttemptSubmit(handleAddNewCollection)}
               >
                 Add

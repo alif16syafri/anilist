@@ -32,7 +32,7 @@ type Search = MakeGenerics<{ Search: { page: number } }>;
 
 const LIMIT = 10;
 
-const GET_ANIME_LIST = gql`
+export const GET_ANIME_LIST = gql`
     query GetAnimeList($page: Int) {
         Page(page: $page, perPage: ${LIMIT}) {
             pageInfo {

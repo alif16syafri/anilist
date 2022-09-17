@@ -10,13 +10,14 @@ import { fp } from 'lib/styles/utils';
 type ButtonVariant = 'primary' | 'secondary';
 type ButtonSize = 'sm' | 'md';
 
-type Props = {
+type InputOwnProps = {
   css?: SerializedStyles;
   children: ReactNode;
   variant?: ButtonVariant;
   size?: ButtonSize;
   onClick?: () => void;
 }
+type Props = Omit<JSX.IntrinsicElements['button'], keyof InputOwnProps> & InputOwnProps;
 
 const buttonStyle = css({
   color: COLOR.N0,

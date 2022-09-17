@@ -1,6 +1,6 @@
 import { Collection } from '../types/collection';
 
-export const collections: Collection[] = [
+export const mockCollections: Collection[] = [
   {
     id: '1',
     name: 'First collection',
@@ -43,14 +43,10 @@ export const collections: Collection[] = [
         id: 1,
         coverImage: {
           large: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx7-6uh1fPvbgS9t.png',
-
         },
-
         title: {
           userPreferred: 'Witch Hunter ROBIN',
-
         },
-
       },
       {
         id: 8,
@@ -58,26 +54,26 @@ export const collections: Collection[] = [
           large: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/b8-ReS3TwSgrDDi.jpg',
 
         },
-
         title: {
           userPreferred: 'Bouken Ou Beet',
 
         },
-
       },
       {
         id: 15,
         coverImage: {
           large: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx15-A4F2t0TgWoi4.png',
-
         },
-
         title: {
           userPreferred: 'Eyeshield 21',
-
         },
-
       },
     ],
   },
 ];
+
+export const mockNewCollection: Collection = {
+  id: '3',
+  name: 'New Collection',
+  media: [],
+};

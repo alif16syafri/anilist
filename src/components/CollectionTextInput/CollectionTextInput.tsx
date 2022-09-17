@@ -25,10 +25,13 @@ const errorStyle = css({
   color: COLOR.R300,
 });
 
+export const COLLECTION_REQUIRED = 'Collection name is required';
+export const COLLECTION_ALPHANUMERIC = 'Collection name can only be alphanumeric';
+
 const getError = (type?: LiteralUnion<'pattern' | 'required' | 'custom', string>, message?: string) => {
   if (!type) return message;
 
-  return type === 'pattern' ? 'Collection name can only be alphanumeric' : 'Collection name is required';
+  return type === 'pattern' ? COLLECTION_ALPHANUMERIC : COLLECTION_REQUIRED;
 };
 
 export const CollectionTextInput: FC<Props> = ({ register, placeholder, error }) => (

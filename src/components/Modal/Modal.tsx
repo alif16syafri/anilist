@@ -51,6 +51,7 @@ export const Modal: FC<Props> = ({
                 <Button
                   size="sm"
                   variant="secondary"
+                  data-testid="modal-secondary-btn"
                   onClick={onClose}
                 >
                   Cancel

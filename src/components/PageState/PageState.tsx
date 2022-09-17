@@ -11,13 +11,13 @@ const containerStyle = css({
 });
 
 export const LoadingState = () => (
-  <div css={containerStyle}>
+  <div css={containerStyle} data-testid="loading">
     <Loading />
   </div>
 );
 
 export const NotFoundState = () => (
-  <div css={containerStyle}>
+  <div css={containerStyle} data-testid="empty-state">
     <p>Not found</p>
   </div>
 );
