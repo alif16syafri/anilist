@@ -11,6 +11,10 @@ const CollectionDetailPage = lazy(() => import('pages/collection-detail/Collecti
 
 export const routes = [
   {
+    path: '/',
+    element: <AnimeListPage />,
+  },
+  {
     path: '/animes/',
     element: <AnimeListPage />,
   },
@@ -33,7 +37,7 @@ const location = new ReactLocation();
 const App = () => (
   <>
     <Suspense fallback={<div style={{ background: COLOR.N900, width: '100vw', height: '100vh' }} />}>
-      <Router location={location} routes={routes} />
+      <Router location={location} routes={routes}  />
     </Suspense>
     <Toaster />
   </>
