@@ -4,7 +4,8 @@ import { render, screen, waitFor } from 'test-utils';
 
 import { mockAnimeList, mockAnimeListPage2 } from 'lib/mocks/animes';
 
-import AnimeListPage, { GET_ANIME_LIST } from './AnimeListPage';
+import { GET_ANIME_LIST } from './useAnimeListPage';
+import AnimeListPage  from './AnimeListPage';
 
 const GET_ANIME_LIST_MOCK_PAGE_1 = {
   request: {
