@@ -22,6 +22,12 @@ npm run build
 serve -s build
 ```
 
+### Run The Tests
+
+```
+npm run test
+```
+
 ## Project Features
 
 ### Routes Available
